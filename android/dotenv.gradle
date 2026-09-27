@@ -70,9 +70,8 @@ loadDotEnv()
 android {
     defaultConfig {
         project.env.each { k, v ->
-            def escaped = v.replaceAll("%","\\\\u0025")
             buildConfigField "String", k, JsonOutput.toJson(v)
-            resValue "string", k, JsonOutput.toJson(escaped)
+            resValue "string", k, JsonOutput.toJson(v).replace("%", "\\u0025")
         }
     }
 }
